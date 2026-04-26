@@ -75,16 +75,16 @@ class Config:
     # ── Workday companies ──────────────────────────────────────────────────────
     # Each entry: tenant (subdomain), wd (instance number), board (job board name)
     workday_companies: List[Dict[str, str]] = field(default_factory=lambda: [
-        {"tenant": "walmart",    "wd": "wd5",  "board": "WalmartExternalCareers"},
-        {"tenant": "target",     "wd": "wd5",  "board": "TargetCareers"},
-        {"tenant": "salesforce", "wd": "wd12", "board": "External_Career_Site"},
-        {"tenant": "deloitte",   "wd": "wd5",  "board": "DeloitteCareers"},
-        {"tenant": "mckesson",   "wd": "wd3",  "board": "McKesson"},
-        {"tenant": "pepsico",    "wd": "wd5",  "board": "External"},
-        {"tenant": "nvidia",     "wd": "wd5",  "board": "External"},
-        {"tenant": "amd",        "wd": "wd5",  "board": "External"},
-        {"tenant": "dell",       "wd": "wd1",  "board": "External"},
-        {"tenant": "oracle",     "wd": "wd5",  "board": "External"},
+        {"tenant": "walmart",    "wd": "5",  "board": "WalmartExternalCareers"},
+        {"tenant": "target",     "wd": "5",  "board": "TargetCareers"},
+        {"tenant": "salesforce", "wd": "12", "board": "External_Career_Site"},
+        {"tenant": "deloitte",   "wd": "5",  "board": "DeloitteCareers"},
+        {"tenant": "mckesson",   "wd": "3",  "board": "McKesson"},
+        {"tenant": "pepsico",    "wd": "5",  "board": "External"},
+        {"tenant": "nvidia",     "wd": "5",  "board": "External"},
+        {"tenant": "amd",        "wd": "5",  "board": "External"},
+        {"tenant": "dell",       "wd": "1",  "board": "External"},
+        {"tenant": "oracle",     "wd": "5",  "board": "External"},
     ])
 
     # ── Recency ────────────────────────────────────────────────────────────────
