@@ -102,6 +102,9 @@ selected_companies = st.sidebar.multiselect(
 
 selected_source = st.sidebar.selectbox("Source", ["All", "greenhouse", "lever"])
 
+exp_options = ["All", "0-5 years (Entry / Mid)", "5+ years (Senior / Staff / Lead)"]
+selected_exp = st.sidebar.selectbox("Experience Level", exp_options)
+
 st.sidebar.divider()
 
 refresh_interval = st.sidebar.slider(
@@ -140,13 +143,19 @@ if selected_companies:
 if selected_source != "All":
     ranked = [j for j in ranked if j.get("source") == selected_source]
 
+if selected_exp == "0-5 years (Entry / Mid)":
+    ranked = [j for j in ranked if j.get("experience_level") in ("0-5", "any")]
+elif selected_exp == "5+ years (Senior / Staff / Lead)":
+    ranked = [j for j in ranked if j.get("experience_level") in ("5+", "any")]
+
 # ── Metrics ────────────────────────────────────────────────────────────────────
 
-c1, c2, c3, c4 = st.columns(4)
+c1, c2, c3, c4, c5 = st.columns(5)
 c1.metric("Matching Jobs", len(ranked))
 c2.metric("Remote", sum(1 for j in ranked if "remote" in j.get("location", "").lower()))
-c3.metric("Greenhouse", sum(1 for j in ranked if j.get("source") == "greenhouse"))
-c4.metric("Lever", sum(1 for j in ranked if j.get("source") == "lever"))
+c3.metric("Senior (5+)", sum(1 for j in ranked if j.get("experience_level") == "5+"))
+c4.metric("Entry/Mid (0-5)", sum(1 for j in ranked if j.get("experience_level") == "0-5"))
+c5.metric("Sources", len(set(j["source"] for j in ranked)))
 
 st.divider()
 
@@ -170,8 +179,14 @@ else:
         with st.container():
             left, right = st.columns([5, 1])
             with left:
+                exp = job.get("experience_level", "any")
+                exp_badge = (
+                    " &nbsp;`🟢 0–5 yrs`" if exp == "0-5"
+                    else " &nbsp;`🔵 5+ yrs`" if exp == "5+"
+                    else ""
+                )
                 st.markdown(
-                    f"### [{job.get('title', 'Untitled')}]({job.get('url', '#')}){remote_tag}",
+                    f"### [{job.get('title', 'Untitled')}]({job.get('url', '#')}){remote_tag}{exp_badge}",
                     unsafe_allow_html=True,
                 )
                 st.markdown(

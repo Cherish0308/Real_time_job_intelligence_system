@@ -100,6 +100,17 @@ class Config:
     max_concurrent_requests: int = 25
     request_timeout: int = 15        # per-request timeout in seconds
 
+    # ── Experience level keywords ──────────────────────────────────────────────
+    senior_keywords: List[str] = field(default_factory=lambda: [
+        "senior", "sr.", "sr ", "staff", "principal", "lead", "head of",
+        "director", "vp ", "vice president", "distinguished", "architect",
+    ])
+
+    mid_entry_keywords: List[str] = field(default_factory=lambda: [
+        "junior", "jr.", "jr ", "associate", "entry", "mid-level", "mid level",
+        "early career", "new grad", "university grad",
+    ])
+
     # ── Alerts ─────────────────────────────────────────────────────────────────
     slack_webhook_url: str = field(
         default_factory=lambda: os.getenv("SLACK_WEBHOOK_URL", "")
