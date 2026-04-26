@@ -1,7 +1,7 @@
 """Central configuration — all tunables live here."""
 import os
 from dataclasses import dataclass, field
-from typing import List
+from typing import Dict, List
 
 try:
     from dotenv import load_dotenv
@@ -71,6 +71,24 @@ class Config:
         "weights-and-biases",
         "huggingface",
     ])
+
+    # ── Workday companies ──────────────────────────────────────────────────────
+    # Each entry: tenant (subdomain), wd (instance number), board (job board name)
+    workday_companies: List[Dict[str, str]] = field(default_factory=lambda: [
+        {"tenant": "walmart",    "wd": "wd5",  "board": "WalmartExternalCareers"},
+        {"tenant": "target",     "wd": "wd5",  "board": "TargetCareers"},
+        {"tenant": "salesforce", "wd": "wd12", "board": "External_Career_Site"},
+        {"tenant": "deloitte",   "wd": "wd5",  "board": "DeloitteCareers"},
+        {"tenant": "mckesson",   "wd": "wd3",  "board": "McKesson"},
+        {"tenant": "pepsico",    "wd": "wd5",  "board": "External"},
+        {"tenant": "nvidia",     "wd": "wd5",  "board": "External"},
+        {"tenant": "amd",        "wd": "wd5",  "board": "External"},
+        {"tenant": "dell",       "wd": "wd1",  "board": "External"},
+        {"tenant": "oracle",     "wd": "wd5",  "board": "External"},
+    ])
+
+    # ── Recency ────────────────────────────────────────────────────────────────
+    recent_days: int = 3    # only surface jobs posted within this many days
 
     # ── Lever company slugs ────────────────────────────────────────────────────
     lever_companies: List[str] = field(default_factory=lambda: [
